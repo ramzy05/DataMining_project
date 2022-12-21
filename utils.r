@@ -1,10 +1,8 @@
-min_max_norm <- function(x) {
-    return (x - min(x)) / (max(x) - min(x))
-}
+
 
 pretaitement <- function (df){
-# library(dplyr)#fonction pour normaliser les colonnes numériques
-library("dplyr")                                     # Load dplyr
+library(dplyr)#fonction pour normaliser les colonnes numériques
+# library("dplyr")
 
 
   # Rénommons PAY_0 en PAY_1,comme ça on ne quitte plus de PAY_0 subitement à PAY_2
@@ -49,3 +47,9 @@ library("dplyr")                                     # Load dplyr
   return (df)
 }
 
+# min_max_norm <- function(x) {
+#     return (x - min(x)) / (max(x) - min(x))
+# }
+ extract_rules <- function(parameters) {
+    selected
+ }
