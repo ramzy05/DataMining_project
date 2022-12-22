@@ -11,7 +11,7 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
 
 
 #pretaitement
-df = pretaitement(df)
+df = pretraitement(df)
     #summary(df)
   df
 }

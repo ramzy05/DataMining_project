@@ -1,6 +1,6 @@
 
 
-pretaitement <- function (df){
+pretraitement <- function (df){
 library(dplyr)#fonction pour normaliser les colonnes numériques
 # library("dplyr")
 
