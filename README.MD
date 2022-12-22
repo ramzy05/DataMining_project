@@ -2,7 +2,7 @@
 
 A class project for applying supervised and unsupervised learning algorithms on a giving dataset
 
-### to run the program type the follow command inside the terminal:
+### to run the program, follows these steps:
 
 1. _run_ **source('utils.r')**
 All utilities functions are in this files
