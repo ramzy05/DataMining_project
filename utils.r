@@ -1,7 +1,7 @@
 
 
 pretaitement <- function (df){
-  install.packages("dplyr")
+  # install.packages("dplyr")
   library(dplyr)#fonction pour normaliser les colonnes numériques
 
 
@@ -51,7 +51,7 @@ pretaitement <- function (df){
 #     return (x - min(x)) / (max(x) - min(x))
 # }
  extract_rules <- function(df) {
-    install.packages("arules")
+    # install.packages("arules")
     library(Matrix)
     library(arules)
     df_disc = discretizeDF(df)
@@ -65,14 +65,15 @@ pretaitement <- function (df){
  modelGenerator <- function(train, test, model_type) {
     predict_y = test$Y #
     if(model_type == 'tree'){
-      install.packages("rpart")
-      install.packages("rpart.plot")
+      # install.packages("rpart")
+      # install.packages("rpart.plot")
       library(rpart)
       library(rpart.plot)
       fitted_model <- rpart(Y~., data = train, method = 'class')
       rpart.plot(fitted_model, extra = 106)
     }
     else if(model_type == 'neuralnet'){
+      # install.packages('nnet')
       library(nnet)
       fitted_model <- nnet(Y~., data = train, size = 10)
 
@@ -84,7 +85,7 @@ pretaitement <- function (df){
     }
 
     else if(model_type == 'svm'){
-      install.packages("e1071")
+      # install.packages("e1071")
       library(e1071)
       
       fitted_model = svm(Y ~ .,train)
@@ -97,5 +98,34 @@ pretaitement <- function (df){
     predict_y = predict(fitted_model, test, type = 'class')
     }
     print(paste(model_type,'model'))
-    as(table(test$Y, predict_y),'data.frame')
+    confusion_matrix = as.data.frame.matrix(table(test$Y, predict_y))
+    rownames(confusion_matrix) = c('F','V')
+    colnames(confusion_matrix) = c('F','V')
+    get_precision_details(confusion_matrix)
+ }
+
+ get_precision_details <- function(conf_matrix){
+    print(conf_matrix)
+    precision = mean(c(
+        conf_matrix['V','V']/(conf_matrix['V','V'] + conf_matrix['F','V']),
+        conf_matrix['F','F']/(conf_matrix['F','F'] + conf_matrix['V','F'])
+      )) 
+
+    rappel = mean(c(
+        conf_matrix['V','V']/(conf_matrix['V','V'] + conf_matrix['V','F']),
+        conf_matrix['F','F']/(conf_matrix['F','F'] + conf_matrix['F','V'])
+      )) 
+    mesure = (2 * rappel * precision)/(rappel + precision)
+   
+    precision = c(paste(round(precision*100, digits=2),'%'))
+    rappel = c(paste(round(rappel*100, digits=2),'%'))
+    # mesure = c(((conf_matrix['V','V'] * 2) / (2*conf_matrix['V','V'] + conf_matrix['F','V'] + conf_matrix['V','F']))=
+    mesure = c(paste(round(mesure*100, digits=2),'%'))
+    return(
+      data.frame(
+        precision,
+        rappel,
+        mesure
+      )
+    )
  }

@@ -13,7 +13,7 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
 #pretaitement
   df = pretaitement(df)
     #summary(df)
-  set.seed(1)
+  set.seed(1) #assure que train et test donne la même valeur a chaque éxecution du code, on peut passer un nbr =! de 1 a set.seed
 
   #u 70% des données pour training set et 30% pour test set
   sample <- sample(c(TRUE, FALSE), nrow(df), replace=TRUE, prob=c(0.7,0.3))
@@ -25,7 +25,7 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
   # rules #decommenter pour voir les prmières règles
 
 #tree model
-  # modelGenerator(train, test,model_type ='tree') #uncomment to test
+  # modelGenerator(train, test, model_type ='tree') #uncomment to test
 
 #nnet model
   # modelGenerator(train, test,model_type ='neuralnet') #uncomment to test
