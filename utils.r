@@ -1,8 +1,8 @@
 
 
 pretaitement <- function (df){
-library(dplyr)#fonction pour normaliser les colonnes numériques
-# library("dplyr")
+  install.packages("dplyr")
+  library(dplyr)#fonction pour normaliser les colonnes numériques
 
 
   # Rénommons PAY_0 en PAY_1,comme ça on ne quitte plus de PAY_0 subitement à PAY_2
@@ -51,6 +51,7 @@ library(dplyr)#fonction pour normaliser les colonnes numériques
 #     return (x - min(x)) / (max(x) - min(x))
 # }
  extract_rules <- function(df) {
+    install.packages("arules")
     library(Matrix)
     library(arules)
     df_disc = discretizeDF(df)
@@ -59,4 +60,42 @@ library(dplyr)#fonction pour normaliser les colonnes numériques
     df_rules <- as(rules, "data.frame") 
     # return (df_disc)
     return (inspect(head(rules, n = 10, by = "lift")))
+ }
+
+ modelGenerator <- function(train, test, model_type) {
+    predict_y = test$Y #
+    if(model_type == 'tree'){
+      install.packages("rpart")
+      install.packages("rpart.plot")
+      library(rpart)
+      library(rpart.plot)
+      fitted_model <- rpart(Y~., data = train, method = 'class')
+      rpart.plot(fitted_model, extra = 106)
+    }
+    else if(model_type == 'neuralnet'){
+      library(nnet)
+      fitted_model <- nnet(Y~., data = train, size = 10)
+
+    }else if(model_type == 'knn'){
+      library(lattice)
+      library(grid)
+      library(DMwR)#ou library(DMwR2)
+      fitted_model <- kNN(Y~., train, test, norm=FALSE, k = 5)
+    }
+
+    else if(model_type == 'svm'){
+      install.packages("e1071")
+      library(e1071)
+      
+      fitted_model = svm(Y ~ .,train)
+    }
+
+
+    if(model_type =='knn'){#ce test est fait pour eviter une erreur lors de l'appel de la fonction predict
+      predict_y = fitted_model#
+    }else{
+    predict_y = predict(fitted_model, test, type = 'class')
+    }
+    print(paste(model_type,'model'))
+    table(test$Y, predict_y)
  }
