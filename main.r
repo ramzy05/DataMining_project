@@ -11,8 +11,11 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
 
 
 #pretaitement
-df = pretaitement(df)
+  df = pretaitement(df)
     #summary(df)
-  df
+
+#extraction des règles
+  rules = extract_rules(df)
+  # rules #decommenter pour voir les prmières règles
 }
 

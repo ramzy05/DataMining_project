@@ -50,6 +50,13 @@ library(dplyr)#fonction pour normaliser les colonnes numériques
 # min_max_norm <- function(x) {
 #     return (x - min(x)) / (max(x) - min(x))
 # }
- extract_rules <- function(parameters) {
-    selected
+ extract_rules <- function(df) {
+    library(Matrix)
+    library(arules)
+    df_disc = discretizeDF(df)
+    trans = transactions(df_disc)
+    rules <- apriori(trans, parameter=list(supp = 0.4, conf = 0.9, target = "rules",maxtime=0))
+    df_rules <- as(rules, "data.frame") 
+    # return (df_disc)
+    return (inspect(head(rules, n = 10, by = "lift")))
  }
