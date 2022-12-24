@@ -25,15 +25,15 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
   # rules #decommenter pour voir les prmières règles
 
 #tree model
-  # modelGenerator(train, test, model_type ='tree') #uncomment to test
+  # supervisedLearnModelGenerator(train, test, model_type ='tree') #uncomment to test
 
 #nnet model
-  # modelGenerator(train, test,model_type ='neuralnet') #uncomment to test
+  # supervisedLearnModelGenerator(train, test,model_type ='neuralnet') #uncomment to test
 
 #knn model
-  # modelGenerator(train, test,model_type ='knn') #uncomment to test
+  # supervisedLearnModelGenerator(train, test,model_type ='knn') #uncomment to test
 
 #svm model
-  # modelGenerator(train, test,model_type ='svm') #uncomment to test
+  # supervisedLearnModelGenerator(train, test,model_type ='svm') #uncomment to test
 
 }

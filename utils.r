@@ -62,7 +62,7 @@ pretaitement <- function (df){
     return (inspect(head(rules, n = 10, by = "lift")))
  }
 
- modelGenerator <- function(train, test, model_type) {
+ supervisedLearnModelGenerator <- function(train, test, model_type) {
     predict_y = test$Y #
     if(model_type == 'tree'){
       # install.packages("rpart")
