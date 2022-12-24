@@ -97,5 +97,5 @@ pretaitement <- function (df){
     predict_y = predict(fitted_model, test, type = 'class')
     }
     print(paste(model_type,'model'))
-    table(test$Y, predict_y)
+    as(table(test$Y, predict_y),'data.frame')
  }
