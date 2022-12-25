@@ -1,4 +1,5 @@
-
+#chargons le repertoire de travail 
+setwd("~/Documents/Data_science/Data_Mining/Exercices_et_TPs/TP_final_datamining") 
 
 pretraitement <- function (df){
 library(dplyr)#fonction pour normaliser les colonnes numériques
@@ -25,9 +26,9 @@ library(dplyr)#fonction pour normaliser les colonnes numériques
 
   df$Y = as.factor(df$Y)#class
 
-  # Fin tranformations les colonones qualitatives en facteur
+  # Fin tranformations des colonones qualitatives en facteur
 
-  #transformation les colonnes montant en nombre
+  #transformons les colonnes montant en nombre
   df$X1 = as.numeric(as.character(df$X1))#limitBalance
   df$X5 = as.numeric(as.character(df$X5))#age
   cols_to_numeric = 12:23
@@ -47,9 +48,39 @@ library(dplyr)#fonction pour normaliser les colonnes numériques
   return (df)
 }
 
+#Analyse statistique descriptive des donnees et commentaires
+Analyse_statistique <-function(df){
+  summary(df)
+}
+
 # min_max_norm <- function(x) {
 #     return (x - min(x)) / (max(x) - min(x))
 # }
- extract_rules <- function(parameters) {
-    selected
+ extract_rules <- function(df) {
+    library(OneR)
+   rules = OneR(Y ~ . , data = df)
+   return(rules)
  }
+ 
+#Construction du model a partie de l'arbre de decision 
+ 
+decision_tree <-function(df){
+  library(rpart)
+  Ad = rpart(Y~. , df)
+  return(Ad)
+}
+
+# matrice de confusion de l'arbre de decision
+matrice_conf <- function(df){
+  nt = sample(1:nrow(df), 0.7*nrow(df))
+  train = df[nt ,]
+  test = df[-nt ,]
+  dt_train = decision_tree(train)
+  prediction = predict(dt_train , test[,-24] , type = c("class"))
+  matrice = table(test[,-24] ,prediction)
+
+  return(matrice)
+}
+
+ 
+ 
