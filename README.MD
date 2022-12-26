@@ -10,3 +10,6 @@ All utilities functions are in this files
 Inside this file there is the main function of the project
 
 3. _run_  **main()** to lauchn the program
+
+### to run the shiny program, follow these steps:
+- _run_  **runApp('app.r')** to lauchn the program
