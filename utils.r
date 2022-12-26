@@ -63,6 +63,7 @@ pretaitement <- function (df){
  }
 
  supervisedLearnModelGenerator <- function(train, test, model_type) {
+    print(paste('Construction',model_type,'model'))
     predict_y = test$Y #
     if(model_type == 'tree'){
       # install.packages("rpart")
@@ -97,7 +98,7 @@ pretaitement <- function (df){
     }else{
     predict_y = predict(fitted_model, test, type = 'class')
     }
-    print(paste(model_type,'model'))
+    print(paste('Fin',model_type,'model'))
     confusion_matrix = as.data.frame.matrix(table(test$Y, predict_y))
     rownames(confusion_matrix) = c('F','V')
     colnames(confusion_matrix) = c('F','V')
