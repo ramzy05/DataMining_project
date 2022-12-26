@@ -36,4 +36,7 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
 #svm model
   # supervisedLearnModelGenerator(train, test,model_type ='svm') #uncomment to test
 
+#hierachical clust
+  unsupervisedLearnModelGenerator(df,model_type ='hierachical clust') #uncomment to test
+
 }
