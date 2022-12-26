@@ -25,16 +25,20 @@ df = read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '
   # rules #decommenter pour voir les prmières règles
 
 #tree model
-  # supervisedLearnModelGenerator(train, test, model_type ='tree') #uncomment to test
+  # confusion_matrix = supervisedLearnModelGenerator(train, test, model_type ='tree') #uncomment to test
+  # get_model_details(confusion_matrix)
 
 #nnet model
-  # supervisedLearnModelGenerator(train, test,model_type ='neuralnet') #uncomment to test
+  # confusion_matrix = supervisedLearnModelGenerator(train, test,model_type ='neuralnet') #uncomment to test
+  # get_model_details(confusion_matrix)
 
 #knn model
-  # supervisedLearnModelGenerator(train, test,model_type ='knn') #uncomment to test
+  # confusion_matrix = supervisedLearnModelGenerator(train, test,model_type ='knn') #uncomment to test
+  # get_model_details(confusion_matrix)
 
 #svm model
-  # supervisedLearnModelGenerator(train, test,model_type ='svm') #uncomment to test
+  # confusion_matrix = supervisedLearnModelGenerator(train, test,model_type ='svm') #uncomment to test
+  # get_model_details(confusion_matrix)
 
 #hierachical clust
   unsupervisedLearnModelGenerator(df,model_type ='hierachical clust') #uncomment to test

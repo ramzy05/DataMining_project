@@ -101,11 +101,10 @@ pretaitement <- function (df){
     confusion_matrix = as.data.frame.matrix(table(test$Y, predict_y))
     rownames(confusion_matrix) = c('F','V')
     colnames(confusion_matrix) = c('F','V')
-    get_precision_details(confusion_matrix)
+    return (confusion_matrix)
  }
 
- get_precision_details <- function(conf_matrix){
-    print(conf_matrix)
+ get_model_details <- function(conf_matrix){
     precision = mean(c(
         conf_matrix['V','V']/(conf_matrix['V','V'] + conf_matrix['F','V']),
         conf_matrix['F','F']/(conf_matrix['F','F'] + conf_matrix['V','F'])
