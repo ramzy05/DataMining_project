@@ -1,5 +1,6 @@
 library(shiny)
 library(shinythemes)
+library(DT)
 
 getDataset <- function() {
 	dataset <- read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '?')
@@ -21,7 +22,7 @@ getTestSet <- function(){
 }
 
 ui = fluidPage(
-    theme = shinytheme("superhero"),
+    theme = shinytheme("sandstone"),
 
   	titlePanel("Credit Card"),
 
@@ -33,8 +34,9 @@ ui = fluidPage(
     # ),
     mainPanel(
        tabsetPanel(type = "tabs",
-          tabPanel("Table", tableOutput("table")),
+          tabPanel("Table", DTOutput("table")),
           tabPanel("Summary", verbatimTextOutput("summary")),
+          tabPanel("Table after pre-processing", DTOutput("tableprocess")),
           tabPanel(
             "Supervised Learning",
             selectInput("model_type", label = "Model", choices = c('tree','neuralnet','knn','svm')),
@@ -80,9 +82,14 @@ server = function(input, output, session) {
       summary(getDataset())
 		})
 		
-		output$table <- renderTable({
+		output$table <- renderDT({
       dataset <- read.csv(file = 'dataset_credit_card.csv',sep=',',header = T,na.strings = '?')
-    	dataset[1:16,]# 15 premieres lignes du datas	})
+    	# dataset[1:16,]# 15 premieres lignes du datas	})
+    	dataset
+    })
+
+		output$tableprocess <- renderDT({
+      getDataset()
     })
 
 		output$conf_matrix <- renderTable({
